@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A55FBD622E13D2D800DE02CB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55FBD612E13D2D800DE02CB /* ViewModel.swift */; };
+		A55FBD632E13D2D800DE02CB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55FBD612E13D2D800DE02CB /* ViewModel.swift */; };
 		A5E2B80B2E12C6BC009FF468 /* calculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E2B80A2E12C6BC009FF468 /* calculatorApp.swift */; };
 		A5E2B80D2E12C6BC009FF468 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E2B80C2E12C6BC009FF468 /* ContentView.swift */; };
 		A5E2B80F2E12C6BE009FF468 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E2B80E2E12C6BE009FF468 /* Assets.xcassets */; };
@@ -34,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A55FBD612E13D2D800DE02CB /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		A5E2B8072E12C6BC009FF468 /* calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5E2B80A2E12C6BC009FF468 /* calculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calculatorApp.swift; sourceTree = "<group>"; };
 		A5E2B80C2E12C6BC009FF468 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 				A5E2B80E2E12C6BE009FF468 /* Assets.xcassets */,
 				A5E2B8102E12C6BE009FF468 /* calculator.entitlements */,
 				A5E2B8112E12C6BE009FF468 /* Preview Content */,
+				A55FBD612E13D2D800DE02CB /* ViewModel.swift */,
 			);
 			path = calculator;
 			sourceTree = "<group>";
@@ -260,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5E2B80D2E12C6BC009FF468 /* ContentView.swift in Sources */,
+				A55FBD622E13D2D800DE02CB /* ViewModel.swift in Sources */,
 				A5E2B80B2E12C6BC009FF468 /* calculatorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A55FBD632E13D2D800DE02CB /* ViewModel.swift in Sources */,
 				A5E2B81D2E12C6BE009FF468 /* calculatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
