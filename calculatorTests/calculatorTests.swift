@@ -23,8 +23,14 @@ final class calculatorTests: XCTestCase {
     func testEmptyString() {
         try XCTAssertEqual(viewModel.calculate(),0)
     }
-    func testWithoutDemiliter() {
+    
+    func testWithoutDemiliter_WithIntValue() {
         viewModel.calculationString = "1"
         try XCTAssertEqual(viewModel.calculate(),1)
+    }
+    
+    func testWithMultipleIntValue() {
+        viewModel.calculationString = "1579"
+        try XCTAssertEqual(viewModel.calculate(), 22)
     }
 }
