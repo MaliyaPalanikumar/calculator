@@ -30,7 +30,17 @@ final class calculatorTests: XCTestCase {
     }
     
     func testWithMultipleIntValue() {
-        viewModel.calculationString = "1579"
+        viewModel.calculationString = "1,5,7,9"
         try XCTAssertEqual(viewModel.calculate(), 22)
+    }
+    
+    func testWithDemiliter_WithIntValue() {
+        viewModel.calculationString = "\n\t3,4,5"
+        try XCTAssertEqual(viewModel.calculate(), 12)
+    }
+    
+    func testWithCustomDemiliter_WithIntValue() {
+        viewModel.calculationString = "//;\n1;2"
+        try XCTAssertEqual(viewModel.calculate(), 3)
     }
 }
