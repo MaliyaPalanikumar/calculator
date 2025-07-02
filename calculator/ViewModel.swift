@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum NumericalError: Error {
+    case negativeCase
+}
+
 class ViewModel {
     var calculationString: String
     /// initializer to initialize the viewModel through dependency injection
@@ -21,7 +25,7 @@ class ViewModel {
             return 0
         }
         do {
-            let regex = try NSRegularExpression(pattern: "[0-9]+")
+            let regex = try NSRegularExpression(pattern: "-[0-9]+")
             let result = regex.matches(in: calculationString,
                                        range: NSRange(calculationString.startIndex...,in: calculationString))
             let calculationArray = result.map {
@@ -30,7 +34,7 @@ class ViewModel {
             let numberValue = calculationArray.compactMap{ Int($0) }
             for number in Array(numberValue) {
                 guard number > 0 else {
-                    return 0 // Exception needs to be handled here
+                    throw NumericalError.negativeCase
                 }
                 sum = sum + number
             }

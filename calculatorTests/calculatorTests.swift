@@ -43,4 +43,9 @@ final class calculatorTests: XCTestCase {
         viewModel.calculationString = "//;\n1;2"
         try XCTAssertEqual(viewModel.calculate(), 3)
     }
+    
+    func testNegativeTestCase() {
+        viewModel.calculationString = "-2"
+        try XCTAssertThrowsError(viewModel.calculate())
+    }
 }
