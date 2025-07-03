@@ -32,7 +32,14 @@ struct ContentView: View {
             Button("Calculate") {
                 viewModel.calculationString = calculateString
                 do {
-                    calculatedValue = String(try viewModel.calculate())
+                   try viewModel.calculate { response in
+                       switch response {
+                       case .success(let sum):
+                           calculatedValue = String(sum)
+                       case .failure(let error):
+                           calculatedValue = error.localizedDescription
+                       }
+                    }
                 }
                 catch {
                     calculatedValue = error.localizedDescription.debugDescription

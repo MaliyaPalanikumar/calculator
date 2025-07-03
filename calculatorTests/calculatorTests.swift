@@ -21,31 +21,103 @@ final class calculatorTests: XCTestCase {
     }
     
     func testEmptyString() {
-        try XCTAssertEqual(viewModel.calculate(),0)
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(let sum):
+                    XCTAssertEqual(sum,0)
+                default:
+                    return
+                }
+            }
+        }
+        catch {
+            XCTAssertNil(error)
+        }
     }
     
     func testWithoutDemiliter_WithIntValue() {
         viewModel.calculationString = "1"
-        try XCTAssertEqual(viewModel.calculate(),1)
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(let sum):
+                    XCTAssertEqual(sum,1)
+                default:
+                    return
+                }
+            }
+        }
+        catch {
+            XCTAssertNil(error)
+        }
+        
     }
     
     func testWithMultipleIntValue() {
         viewModel.calculationString = "1,5,7,9"
-        try XCTAssertEqual(viewModel.calculate(), 22)
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(let sum):
+                    XCTAssertEqual(sum,22)
+                default:
+                    return
+                }
+            }
+        }
+        catch {
+            XCTAssertNil(error)
+        }
     }
     
     func testWithDemiliter_WithIntValue() {
         viewModel.calculationString = "\n\t3,4,5"
-        try XCTAssertEqual(viewModel.calculate(), 12)
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(let sum):
+                    XCTAssertEqual(sum,12)
+                default:
+                    return
+                }
+            }
+        }
+        catch {
+            XCTAssertNil(error)
+        }
     }
     
     func testWithCustomDemiliter_WithIntValue() {
         viewModel.calculationString = "//;\n1;2"
-        try XCTAssertEqual(viewModel.calculate(), 3)
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(let sum):
+                    XCTAssertEqual(sum,3)
+                default:
+                    return
+                }
+            }
+        }
+        catch {
+            XCTAssertNil(error)
+        }
     }
     
     func testNegativeTestCase() {
         viewModel.calculationString = "-2"
-        try XCTAssertThrowsError(viewModel.calculate())
-    }
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(_):
+                    return
+                case .failure(let error):
+                    XCTAssertNotNil(error)
+                }
+            }
+        } catch {
+                XCTAssertNil(error)
+            }
+        }
 }

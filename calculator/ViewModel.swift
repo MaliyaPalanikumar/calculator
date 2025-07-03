@@ -21,10 +21,11 @@ class ViewModel: ObservableObject {
     
     /// function to calculate the sum
     /// - Returns: return the calculate sum
-    func calculate() throws -> Int {
+    func calculate(completionHandler: @escaping (Result<Int,Error>) -> Void) throws{
         var sum = 0
         guard !calculationString.isEmpty else {
-            return 0
+            completionHandler(.success(sum))
+            return
         }
         do {
             // added the regression expression to match the pattern
@@ -37,12 +38,13 @@ class ViewModel: ObservableObject {
             let numberValue = calculationArray.compactMap{ Int($0) }
             for number in Array(numberValue) {
                 guard number.isPostive() else {
-                    throw NumericalError.negativeCase
+                    completionHandler(.failure(NumericalError.negativeCase))
+                    return
                 }
                 sum = sum + number
             }
         }
-        return sum
+        completionHandler(.success(sum))
     }
 }
 // adding custom function through extension
