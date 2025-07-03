@@ -13,19 +13,36 @@ struct ContentView: View {
     @StateObject var viewModel = ViewModel()
     var body: some View {
         VStack {
+            Image("backgroundImage")
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
             Text(verbatim: calculatedValue ?? "")
+                .padding(EdgeInsets(top: 50, leading: 25, bottom: 50, trailing: 25))
+                .font(.system(size: 50))
+                .foregroundStyle(.purple)
+            
             TextField("Enter the input", text: $calculateString)
+                .cornerRadius(10.0)
+                .font(.system(size: 20))
+                .foregroundStyle(.purple)
+                .padding(.leading,25)
+            
             Button("Calculate") {
                 viewModel.calculationString = calculateString
                 do {
                     calculatedValue = String(try viewModel.calculate())
                 }
                 catch {
-                    
+                    calculatedValue = error.localizedDescription.debugDescription
                 }
-               
             }
+            .disabled(calculateString.isEmpty)
+            .cornerRadius(10.0)
+            .font(.system(size: 50))
+            .foregroundStyle(.purple)
+            .padding(EdgeInsets(top: 50, leading: 25, bottom: 50, trailing: 25))
         }
-        .padding()
     }
 }

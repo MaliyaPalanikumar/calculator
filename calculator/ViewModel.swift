@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NumericalError: Error {
+enum NumericalError: String,Error {
     case negativeCase
 }
 
@@ -19,12 +19,15 @@ class ViewModel: ObservableObject {
         self.calculationString = calculationString
     }
     
+    /// function to calculate the sum
+    /// - Returns: return the calculate sum
     func calculate() throws -> Int {
         var sum = 0
         guard !calculationString.isEmpty else {
             return 0
         }
         do {
+            // added the regression expression to match the pattern
             let regex = try NSRegularExpression(pattern: "-?[0-9]+")
             let result = regex.matches(in: calculationString,
                                        range: NSRange(calculationString.startIndex...,in: calculationString))
@@ -42,9 +45,23 @@ class ViewModel: ObservableObject {
         return sum
     }
 }
+// adding custom function through extension
 
 extension Int {
     func isPostive() -> Bool {
         return self > 0 ? true: false
+    }
+}
+
+extension NumericalError: CustomStringConvertible {
+    var description: String {
+        return "Negative number are not allowed"
+    }
+}
+
+extension NumericalError: LocalizedError {
+    private var errorDescription: String {
+        return NSLocalizedString("Negative number are not allowed",
+                                 comment: "Negative number")
     }
 }
