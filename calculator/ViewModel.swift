@@ -11,11 +11,11 @@ enum NumericalError: Error {
     case negativeCase
 }
 
-class ViewModel {
+class ViewModel: ObservableObject {
     var calculationString: String
     /// initializer to initialize the viewModel through dependency injection
     /// - Parameter calculationString: string to be calculated
-    init(calculationString: String) {
+    init(calculationString: String = "") {
         self.calculationString = calculationString
     }
     
@@ -25,7 +25,7 @@ class ViewModel {
             return 0
         }
         do {
-            let regex = try NSRegularExpression(pattern: "-[0-9]+")
+            let regex = try NSRegularExpression(pattern: "-?[0-9]+")
             let result = regex.matches(in: calculationString,
                                        range: NSRange(calculationString.startIndex...,in: calculationString))
             let calculationArray = result.map {
@@ -33,7 +33,7 @@ class ViewModel {
             }
             let numberValue = calculationArray.compactMap{ Int($0) }
             for number in Array(numberValue) {
-                guard number > 0 else {
+                guard number.isPostive() else {
                     throw NumericalError.negativeCase
                 }
                 sum = sum + number
