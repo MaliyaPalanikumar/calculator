@@ -8,28 +8,116 @@
 import XCTest
 
 final class calculatorTests: XCTestCase {
+    var viewModel:ViewModel!
 
     override func setUpWithError() throws {
+        viewModel = ViewModel(calculationString: "")
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDownWithError() throws {
+        viewModel = nil
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    
+    func testEmptyString() {
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(let sum):
+                    XCTAssertEqual(sum,0)
+                default:
+                    return
+                }
+            }
+        }
+        catch {
+            XCTAssertNil(error)
         }
     }
-
+    
+    func testWithoutDemiliter_WithIntValue() {
+        viewModel.calculationString = "1"
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(let sum):
+                    XCTAssertEqual(sum,1)
+                default:
+                    return
+                }
+            }
+        }
+        catch {
+            XCTAssertNil(error)
+        }
+        
+    }
+    
+    func testWithMultipleIntValue() {
+        viewModel.calculationString = "1,5,7,9"
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(let sum):
+                    XCTAssertEqual(sum,22)
+                default:
+                    return
+                }
+            }
+        }
+        catch {
+            XCTAssertNil(error)
+        }
+    }
+    
+    func testWithDemiliter_WithIntValue() {
+        viewModel.calculationString = "\n\t3,4,5"
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(let sum):
+                    XCTAssertEqual(sum,12)
+                default:
+                    return
+                }
+            }
+        }
+        catch {
+            XCTAssertNil(error)
+        }
+    }
+    
+    func testWithCustomDemiliter_WithIntValue() {
+        viewModel.calculationString = "//;\n1;2"
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(let sum):
+                    XCTAssertEqual(sum,3)
+                default:
+                    return
+                }
+            }
+        }
+        catch {
+            XCTAssertNil(error)
+        }
+    }
+    
+    func testNegativeTestCase() {
+        viewModel.calculationString = "-2"
+        do {
+            try viewModel.calculate { response in
+                switch response {
+                case .success(_):
+                    return
+                case .failure(let error):
+                    XCTAssertNotNil(error)
+                }
+            }
+        } catch {
+                XCTAssertNil(error)
+            }
+        }
 }
